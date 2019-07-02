@@ -4,7 +4,20 @@ using System.Text;
 
 namespace LemonadeStand
 {
-    using recipe = Dictionary<String, int>;
+
+    public struct recipe
+    {
+        public int Lemon;
+        public int Sugar;
+        public int Ice;
+
+        public recipe(int Lemon, int Sugar, int Ice)
+        {
+            this.Lemon = Lemon;
+            this.Sugar = Sugar;
+            this.Ice = Ice;
+        }
+    };
     class LemonadeStand
     {
         private double money;
@@ -26,7 +39,7 @@ namespace LemonadeStand
         public bool refillPitcher()
         {
            
-                if (ingredientsInStock["lemon"] - currentRecipe["lemon"] <= 0|| ingredientsInStock["sugar"] - currentRecipe["sugar"] <= 0 || ingredientsInStock["ice"] - currentRecipe["ice"] <= 0)
+                if (ingredientsInStock.Lemon - currentRecipe.Lemon <= 0|| ingredientsInStock.Sugar - currentRecipe.Sugar <= 0 || ingredientsInStock.Ice - currentRecipe.Ice <= 0)
                 {
                     Console.WriteLine("Sold Out!");
                     return false;
@@ -34,9 +47,9 @@ namespace LemonadeStand
 
 
            
-            ingredientsInStock["lemon"] -= currentRecipe["lemon"] * 10;
-            ingredientsInStock["sugar"] -= currentRecipe["sugar"] * 10;
-            ingredientsInStock["ice"] -= currentRecipe["ice"] * 10;
+            ingredientsInStock.Lemon -= currentRecipe.Lemon * 10;
+            ingredientsInStock.Sugar -= currentRecipe.Sugar * 10;
+            ingredientsInStock.Ice -= currentRecipe.Ice * 10;
             pitcher.cups = 10;
             return true;
         }
@@ -52,23 +65,23 @@ namespace LemonadeStand
         }
         public void changeRecipe(recipe r)
         {
-            currentRecipe["lemon"] = r["lemon"];
-            currentRecipe["sugar"] = r["sugar"];
-            currentRecipe["ice"] = r["ice"];
+            currentRecipe.Lemon = r.Lemon;
+            currentRecipe.Sugar = r.Sugar;
+            currentRecipe.Sugar = r.Sugar;
             pitcher.changeRecipe(r);
         }
 
         public void stockItems(recipe items)
         {
-            ingredientsInStock["lemon"] += items["lemon"];
-            ingredientsInStock["sugar"] += items["sugar"];
-            ingredientsInStock["ice"] += items["ice"];
+            ingredientsInStock.Lemon += items.Lemon;
+            ingredientsInStock.Sugar += items.Sugar;
+            ingredientsInStock.Ice += items.Ice;
         }
 
         public void showItemsInStock()
         {
             Console.WriteLine("         Current Items in stock");
-            Console.WriteLine($"Lemons: {ingredientsInStock["lemon"]} Sugar: {ingredientsInStock["sugar"]} Ice: {ingredientsInStock["ice"]}");
+            Console.WriteLine($"Lemons: {ingredientsInStock.Lemon} Sugar: {ingredientsInStock.Sugar} Ice: {ingredientsInStock.Ice}");
         }
 
         public void displayWallet()

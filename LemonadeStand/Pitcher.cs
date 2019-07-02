@@ -4,7 +4,6 @@ using System.Text;
 
 namespace LemonadeStand
 {
-    using recipe = Dictionary<String, int>;
     class Pitcher
     {
         private recipe ingredients;

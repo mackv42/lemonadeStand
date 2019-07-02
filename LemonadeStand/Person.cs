@@ -4,7 +4,6 @@ using System.Text;
 
 namespace LemonadeStand
 {
-    using recipe = Dictionary<String, int>;
     class Person
     {
         private double money;
@@ -18,7 +17,7 @@ namespace LemonadeStand
             // influences if they want to buy
             Random rnd = new Random();
             this.money = rnd.Next(0, 10);
-            
+            buyChance = 0;
             //assigns a random name
             this.name = peopleNames[rnd.Next(0, peopleNames.Count - 1)];
         }
@@ -39,14 +38,14 @@ namespace LemonadeStand
         public void influencePreference(Func<recipe> f)
         {
             recipe recipe_influence = f();
-            this.preference["lemon"] += recipe_influence["lemon"];
-            this.preference["sugar"] += recipe_influence["sugar"];
-            this.preference["ice"] += recipe_influence["ice"];
+            this.preference.Lemon += recipe_influence.Lemon;
+            this.preference.Sugar += recipe_influence.Sugar;
+            this.preference.Ice += recipe_influence.Ice;
         }
 
         public bool makeDecision( ref LemonadeStand L )
         {
-            buyChance = 1;
+          
             //decides if they want some lemonade
 
             Random rnd = new Random();

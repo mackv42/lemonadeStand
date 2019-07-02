@@ -4,10 +4,10 @@ using System.Text;
 
 namespace LemonadeStand
 {
-    using recipe = Dictionary<String, int>;
+
     class Game
     {
-        
+
         private byte difficulty;
         private List<LemonadeStand> lemonadeStands;
         public recipe currentRecipe;
@@ -36,7 +36,7 @@ namespace LemonadeStand
             while (!f()) { }
         }
 
-        public static int promptForInteger( String prompt )
+        public static int promptForInteger(String prompt)
         {
             int _return = 0;
             loopUntilTrue(() =>
@@ -45,7 +45,7 @@ namespace LemonadeStand
                     {
                         Console.Write(prompt);
                         _return = Int32.Parse(Console.ReadLine());
-                    } catch( FormatException E)
+                    } catch (FormatException E)
                     {
                         Console.WriteLine("You need To enter a number!");
                         return false;
@@ -81,20 +81,20 @@ namespace LemonadeStand
             return _return;
         }
 
-        public static double[] promptForMoney( String item,  double price )
+        public static double[] promptForMoney(String item, double price)
         {
             Console.WriteLine($"It's ${price} per {item}");
             Console.WriteLine($"How Many {item}s would you like to Buy?");
-            
+
             try
             {
                 Console.Write("Buy: ");
                 int quantity = Int32.Parse(Console.ReadLine());
-                if(quantity < 0) {
-                    return new double[2] { (double)quantity*-1, quantity*-1 * price };
+                if (quantity < 0) {
+                    return new double[2] { (double)quantity * -1, quantity * -1 * price };
                 }
-                return new double[2] {(double)quantity, quantity * price};
-            } catch( FormatException E)
+                return new double[2] { (double)quantity, quantity * price };
+            } catch (FormatException E)
             {
                 Console.WriteLine("Invalid you need to enter a number/n/n");
                 return promptForMoney(item, price);
@@ -103,10 +103,7 @@ namespace LemonadeStand
 
         public Game()
         {
-            currentRecipe = new recipe();
-            currentRecipe.Add("lemon", 5);
-            currentRecipe.Add("sugar", 5);
-            currentRecipe.Add("ice", 5);
+            currentRecipe = new recipe(5, 5, 5);
 
             playGame();
         }
@@ -141,14 +138,14 @@ namespace LemonadeStand
                 stand.displayWallet();
                 stand.showItemsInStock();
                 Console.WriteLine("What Recipe would you like to use?");
-                currentRecipe["lemon"] = promptForInteger("Lemons: ");
-                currentRecipe["sugar"] = promptForInteger("Sugar: ");
-                currentRecipe["ice"] = promptForInteger("Ice: ");
+                currentRecipe.Lemon = promptForInteger("Lemons: ");
+                currentRecipe.Sugar = promptForInteger("Sugar: ");
+                currentRecipe.Ice = promptForInteger("Ice: ");
                 stand.changeRecipe(currentRecipe);
 
-                stock["lemon"] = (int)promptForMoney("Lemon", .25)[0];
-                stock["sugar"] = (int)promptForMoney("Sugar", .25)[0];
-                stock["ice"] = (int)promptForMoney("Ice", .25)[0];
+                stock.Lemon = (int)promptForMoney("Lemon", .25)[0];
+                stock.Sugar = (int)promptForMoney("Sugar", .25)[0];
+                stock.Ice = (int)promptForMoney("Ice", .25)[0];
 
                 double price = promptForDouble("Price / Cup: ");
 
