@@ -38,12 +38,12 @@ namespace LemonadeStand
 
         public bool refillPitcher()
         {
-           
-                if (ingredientsInStock.Lemon - currentRecipe.Lemon <= 0|| ingredientsInStock.Sugar - currentRecipe.Sugar <= 0 || ingredientsInStock.Ice - currentRecipe.Ice <= 0)
-                {
-                    Console.WriteLine("Sold Out!");
-                    return false;
-                }
+           //doesnt Work!
+            if (ingredientsInStock.Lemon - currentRecipe.Lemon*10 <= 0|| ingredientsInStock.Sugar - currentRecipe.Sugar*10 <= 0 || ingredientsInStock.Ice - currentRecipe.Ice*10 <= 0)
+            {
+                Console.WriteLine("Sold Out!");
+                return false;
+            }
 
 
            
