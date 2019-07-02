@@ -131,29 +131,33 @@ namespace LemonadeStand
 
             
             LemonadeStand stand = new LemonadeStand(currentRecipe);
-            recipe stock = Lemonade.InstantiateLemonade();
+            
 
             for (int currentDay = 0; currentDay < days; currentDay++)
             {
-                stand.displayWallet();
+                List<String> weatherStates = new List<String> { "Rainy", "Cloudy", "Sunny" };
+
+                Random rnd = new Random();
+                String weatherState = weatherStates[rnd.Next(0, 2)];
+                
+                int temperature = 0;
+                temperature = rnd.Next(50, 100);
+
+                Console.WriteLine($"We have {weatherState} weather and its {temperature} degrees outside");
+                Console.WriteLine($"You have {stand.getPopularity()} popularity.");
+                if (!Game.yesNo("Would you like to Play through this day? [Save on potentially wasting resources]"))
+                {
+                    continue;
+                }
+
                 stand.showItemsInStock();
-                Console.WriteLine("What Recipe would you like to use?");
-                currentRecipe.Lemon = promptForInteger("Lemons: ");
-                currentRecipe.Sugar = promptForInteger("Sugar: ");
-                currentRecipe.Ice = promptForInteger("Ice: ");
-                stand.changeRecipe(currentRecipe);
-
-                stock.Lemon = (int)promptForMoney("Lemon", .25)[0];
-                stock.Sugar = (int)promptForMoney("Sugar", .25)[0];
-                stock.Ice = (int)promptForMoney("Ice", .25)[0];
-
-                double price = promptForDouble("Price / Cup: ");
-
-                stand.stockItems(stock);
+                stand.promptForRecipe();
+                stand.displayWallet();
+                stand.buyItems();
                 Console.Clear();
 
                 Day day = new Day(ref stand);
-                day.start(ref stand);
+                day.start(ref stand, weatherState, temperature);
             }
 
         }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace LemonadeStand
-{
-
+{ 
     public struct recipe
     {
         public int Lemon;
@@ -22,6 +21,8 @@ namespace LemonadeStand
     {
         private double money;
         private double pricePerCup;
+        private double popularity;
+
         recipe ingredientsInStock;
         recipe currentRecipe;
         private Pitcher pitcher;
@@ -38,18 +39,16 @@ namespace LemonadeStand
 
         public bool refillPitcher()
         {
-           //doesnt Work!
-            if (ingredientsInStock.Lemon - currentRecipe.Lemon*10 <= 0|| ingredientsInStock.Sugar - currentRecipe.Sugar*10 <= 0 || ingredientsInStock.Ice - currentRecipe.Ice*10 <= 0)
+           
+            if (ingredientsInStock.Lemon - currentRecipe.Lemon < 0|| ingredientsInStock.Sugar - currentRecipe.Sugar < 0 || ingredientsInStock.Ice - currentRecipe.Ice < 0)
             {
                 Console.WriteLine("Sold Out!");
                 return false;
             }
-
-
            
-            ingredientsInStock.Lemon -= currentRecipe.Lemon * 10;
-            ingredientsInStock.Sugar -= currentRecipe.Sugar * 10;
-            ingredientsInStock.Ice -= currentRecipe.Ice * 10;
+            ingredientsInStock.Lemon -= currentRecipe.Lemon;
+            ingredientsInStock.Sugar -= currentRecipe.Sugar;
+            ingredientsInStock.Ice -= currentRecipe.Ice;
             pitcher.cups = 10;
             return true;
         }
@@ -63,12 +62,36 @@ namespace LemonadeStand
         {
 
         }
+
+        public recipe getRecipe()
+        {
+            return currentRecipe;
+        }
         public void changeRecipe(recipe r)
         {
             currentRecipe.Lemon = r.Lemon;
             currentRecipe.Sugar = r.Sugar;
             currentRecipe.Sugar = r.Sugar;
             pitcher.changeRecipe(r);
+        }
+
+        public void promptForRecipe()
+        {
+            Console.WriteLine("What Recipe would you like to use?");
+            currentRecipe.Lemon = Game.promptForInteger("Lemons: ");
+            currentRecipe.Sugar = Game.promptForInteger("Sugar: ");
+            currentRecipe.Ice = Game.promptForInteger("Ice: ");
+        }
+
+        public void buyItems()
+        {
+            recipe stock = Lemonade.InstantiateLemonade();
+            stock.Lemon = (int)Game.promptForMoney("Lemon", .10)[0];
+            stock.Sugar = (int)Game.promptForMoney("Sugar", .12)[0];
+            stock.Ice = (int)Game.promptForMoney("Ice Cube", .01)[0];
+            this.pricePerCup = Game.promptForDouble("Price / Cup: ");
+            this.money -= stock.Lemon * .10 + stock.Sugar * .12 + stock.Ice * .01;
+            this.stockItems(stock);
         }
 
         public void stockItems(recipe items)
@@ -92,6 +115,17 @@ namespace LemonadeStand
         {
             return this.pricePerCup;
         }
+
+        public void incrementPopularity()
+        {
+            popularity += 0.005;
+        }
+
+        public double getPopularity()
+        {
+            return popularity;
+        }
+
         public bool checkPitcher()
         {
             if(pitcher.cups <= 0)

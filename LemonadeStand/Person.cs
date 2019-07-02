@@ -20,6 +20,8 @@ namespace LemonadeStand
             buyChance = 0;
             //assigns a random name
             this.name = peopleNames[rnd.Next(0, peopleNames.Count - 1)];
+
+            this.preference = new recipe(rnd.Next(3, 7), rnd.Next(3, 7), rnd.Next(3, 7));
         }
 
         
@@ -41,6 +43,24 @@ namespace LemonadeStand
             this.preference.Lemon += recipe_influence.Lemon;
             this.preference.Sugar += recipe_influence.Sugar;
             this.preference.Ice += recipe_influence.Ice;
+        }
+
+        private bool inbetween(int p1, int p2, int n)
+        {
+            if (n >= p1 && n <= p2)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool likes(recipe r)
+        {
+            bool lemonThreshold = inbetween(preference.Lemon - 1, preference.Lemon + 1, r.Lemon);
+            bool sugarThreshold = inbetween(preference.Sugar - 1, preference.Sugar + 1, r.Sugar);
+            bool iceThreshold = inbetween(preference.Ice - 1, preference.Ice + 1, r.Ice);
+            return (lemonThreshold | sugarThreshold) & iceThreshold;
         }
 
         public bool makeDecision( ref LemonadeStand L )
@@ -65,7 +85,16 @@ namespace LemonadeStand
                 {
                     double cost = L.sellTo(this);
                     this.money -= cost;
-                    Console.WriteLine($"{this.name}: Like the lemonade");
+                    
+                    if (this.likes(L.getRecipe()))
+                    {
+                        Console.WriteLine($"{this.name}: Like the lemonade");
+                        L.incrementPopularity();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{this.name}: This lemonade is meh");
+                    }
                     return true;
                 }
                 else
