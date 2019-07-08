@@ -24,26 +24,11 @@ namespace LemonadeStand
             this.preference = new recipe(rnd.Next(3, 7), rnd.Next(3, 7), rnd.Next(3, 7));
         }
 
-        
-
-        public void influenceBuyChance(Func<double> f)
-        {
-            buyChance += f();
-        }
-
         public void influenceBuyChance(double i)
         {
             buyChance += i;
         }
 
-
-        public void influencePreference(Func<recipe> f)
-        {
-            recipe recipe_influence = f();
-            this.preference.Lemon += recipe_influence.Lemon;
-            this.preference.Sugar += recipe_influence.Sugar;
-            this.preference.Ice += recipe_influence.Ice;
-        }
 
         private bool inbetween(int p1, int p2, int n)
         {

@@ -123,12 +123,11 @@ namespace LemonadeStand
                 
                 /////////////////////////////// Player1 input /////////////////////////////////////////
                 Console.WriteLine($"Player1 has {p1.getStand().getMoney() - 15}  total net profit");
-                Thread.Sleep(3000);
+                Thread.Sleep(2000);
                 Console.Clear();
 
                 Console.WriteLine($"We have {weatherState} weather and its {temperature} degrees outside");
                 Console.WriteLine($"Player1 has {p1.getStand().getPopularity()} popularity.");
-
 
                 bool p1Play = true;
                 if (p1.playDay())
@@ -191,6 +190,7 @@ namespace LemonadeStand
                 //Console.WriteLine($"You made {stand.getMoney() - tmp} net profit today.");
             }
 
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine($"Player1 made {p1.getStand().getMoney() - 15} net profit");
             Console.WriteLine($"Player2 made {p2.getStand().getMoney() - 15} net profit");
         }

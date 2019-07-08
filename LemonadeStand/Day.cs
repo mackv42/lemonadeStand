@@ -35,7 +35,7 @@ namespace LemonadeStand
                             // how weather influences person
                             if (weatherState == "Sunny") p.influenceBuyChance(0.3);
                             if (weatherState == "Rainy") p.influenceBuyChance(-0.3);
-                            p.influenceBuyChance(stand.getPopularity);
+                            p.influenceBuyChance(stand.getPopularity());
                             p.influenceBuyChance(.25 - stand.getPrice());
 
                             p.influenceBuyChance(temperature/65);

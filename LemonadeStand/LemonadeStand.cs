@@ -57,7 +57,7 @@ namespace LemonadeStand
            
             if (ingredientsInStock.Lemon - currentRecipe.Lemon < 0|| ingredientsInStock.Sugar - currentRecipe.Sugar < 0 || ingredientsInStock.Ice - currentRecipe.Ice < 0)
             {
-                Console.WriteLine("Sold Out!");
+                UI.writeLineAt("Sold Out!", 45);
                 return false;
             }
            

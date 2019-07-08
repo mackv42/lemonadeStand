@@ -6,6 +6,8 @@ namespace LemonadeStand
 {
     public class UI
     {
+        private static readonly object ConsoleLock = new object();
+
         public static void loopUntilTrue(Func<bool> f)
         {
             while (!f()) { }
@@ -115,24 +117,35 @@ namespace LemonadeStand
         
         public static void clearAndDisplay(String s, int x)
         {
-            Console.Clear();
-            UI.writeAt(s, x);
-            System.Threading.Thread.Sleep(1500);
-            Console.Clear();
+            lock (UI.ConsoleLock)
+            {
+                Console.Clear();
+                UI.writeAt(s, x);
+                System.Threading.Thread.Sleep(1500);
+                Console.Clear();
+            }
         }
 
         public static void writeAt(String s, int x)
         {
-            Console.SetCursorPosition(x, 0);
-            Console.Write(s);
+            lock (UI.ConsoleLock)
+            {
+                Console.SetCursorPosition(x, 0);
+                Console.Write(s);
+            }
         }
 
         public static int cy;
         public static void writeLineAt(String s, int x)
         {
             cy++;
-            Console.SetCursorPosition(x, cy);
-            Console.WriteLine(s);
+            lock (UI.ConsoleLock)
+            {
+                Console.SetCursorPosition(x, cy);
+                Console.WriteLine(s);
+                Console.SetCursorPosition(0, cy);
+            }
+            
         }
     }
 }
