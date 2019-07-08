@@ -6,15 +6,13 @@ namespace LemonadeStand
 {
     class Day
     {
-        private int temperature;
         
         public Day( ref LemonadeStand stand )
         {
-            Random rnd = new Random();
-            temperature = rnd.Next(0, 50) + 50;
+            
         }
 
-        public int[] start( ref LemonadeStand stand, String weatherState, int temperature )
+        public void start( ref LemonadeStand stand, String weatherState, int temperature )
         {
             
             List<String> peopleNames = new List<String>{
@@ -55,8 +53,8 @@ namespace LemonadeStand
                 }
             //returns money made and popularity gained
             Console.Clear();
-            Console.WriteLine($"You Sold to {soldTo} of {potentialCustomers} potential customers");
-            return new int[2] { 0, 1 };
+            UI.writeLineAt($"You Sold to {soldTo} of {potentialCustomers} potential customers", stand.pos);
+            
         }
     }
 }

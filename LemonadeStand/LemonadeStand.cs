@@ -17,17 +17,32 @@ namespace LemonadeStand
             this.Ice = Ice;
         }
     };
-    class LemonadeStand
+    public class LemonadeStand
     {
         private double money;
         private double pricePerCup;
         private double popularity;
-
+        public int pos;
         recipe ingredientsInStock;
         recipe currentRecipe;
         private Pitcher pitcher;
         public LemonadeStand(recipe r)
         {
+            this.pos = 0;
+            money = 15;
+            ingredientsInStock = Lemonade.InstantiateLemonade();
+            currentRecipe = r;
+            
+            pricePerCup = .25;
+            this.pitcher = new Pitcher(r);
+            pitcher.cups = 0;
+        }
+
+        public LemonadeStand(recipe r, int pos)
+        {
+            //position it writes to
+            this.pos = pos;
+
             money = 15;
             ingredientsInStock = Lemonade.InstantiateLemonade();
             currentRecipe = r;
@@ -52,7 +67,7 @@ namespace LemonadeStand
             pitcher.cups = 10;
             return true;
         }
-        public double sellTo( Person customer)
+        public double sellTo( Person customer )
         {
             pitcher.cups--;
             this.money += this.pricePerCup;
@@ -78,19 +93,24 @@ namespace LemonadeStand
         public void promptForRecipe()
         {
             Console.WriteLine("What Recipe would you like to use?");
-            currentRecipe.Lemon = Game.promptForInteger("Lemons: ");
-            currentRecipe.Sugar = Game.promptForInteger("Sugar: ");
-            currentRecipe.Ice = Game.promptForInteger("Ice: ");
+            currentRecipe.Lemon = UI.promptForInteger("Lemons: ");
+            currentRecipe.Sugar = UI.promptForInteger("Sugar: ");
+            currentRecipe.Ice = UI.promptForInteger("Ice: ");
         }
 
         public void buyItems()
         {
             recipe stock = Lemonade.InstantiateLemonade();
-            stock.Lemon = (int)Game.promptForMoney("Lemon", .10)[0];
-            stock.Sugar = (int)Game.promptForMoney("Sugar", .12)[0];
-            stock.Ice = (int)Game.promptForMoney("Ice Cube", .01)[0];
-            this.pricePerCup = Game.promptForDouble("Price / Cup: ");
-            this.money -= stock.Lemon * .10 + stock.Sugar * .12 + stock.Ice * .01;
+            
+
+            double [] lemons = UI.promptForMoney("Lemon", .10);
+            double [] sugar = UI.promptForMoney("Sugar", .12);
+            double [] ice = UI.promptForMoney("Ice Cube", .01);
+            this.pricePerCup = UI.promptForDouble("Price / Cup: ");
+            stock.Lemon += (int)lemons[0];
+            stock.Sugar += (int)sugar[0];
+            stock.Ice += (int)ice[0];
+            this.money -= lemons[1] + sugar[1] + ice[1];
             this.stockItems(stock);
         }
 
@@ -128,7 +148,7 @@ namespace LemonadeStand
 
         public bool checkPitcher()
         {
-            if(pitcher.cups <= 0)
+            if (pitcher.cups <= 0)
             {
                 if (!refillPitcher())
                 {
@@ -136,6 +156,11 @@ namespace LemonadeStand
                 }
             }
             return true;
+        }
+
+        public double getMoney()
+        {
+            return money;
         }
     }
 }

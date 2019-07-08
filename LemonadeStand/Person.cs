@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LemonadeStand
 {
-    class Person
+    public class Person
     {
         private double money;
         private double satisfaction;
@@ -88,19 +88,18 @@ namespace LemonadeStand
                     
                     if (this.likes(L.getRecipe()))
                     {
-                        Console.WriteLine($"{this.name}: Like the lemonade");
+                        UI.writeLineAt($"{this.name}: Like the lemonade", L.pos);
                         L.incrementPopularity();
                     }
                     else
                     {
-                        Console.WriteLine($"{this.name}: This lemonade is meh");
+                        UI.writeLineAt($"{this.name}: This lemonade is meh", L.pos);
                     }
                     return true;
                 }
                 else
                 {
                     return false;
-                    Console.WriteLine($"{name}: I don't have the money for that!");
                 }
             }
             else

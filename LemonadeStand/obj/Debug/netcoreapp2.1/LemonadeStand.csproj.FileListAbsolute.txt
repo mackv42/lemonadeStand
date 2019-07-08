@@ -9,3 +9,5 @@ C:\Users\Vincent\source\repos\LemonadeStand\LemonadeStand\obj\Debug\netcoreapp2.
 C:\Users\Vincent\source\repos\LemonadeStand\LemonadeStand\obj\Debug\netcoreapp2.1\LemonadeStand.AssemblyInfo.cs
 C:\Users\Vincent\source\repos\LemonadeStand\LemonadeStand\obj\Debug\netcoreapp2.1\LemonadeStand.dll
 C:\Users\Vincent\source\repos\LemonadeStand\LemonadeStand\obj\Debug\netcoreapp2.1\LemonadeStand.pdb
+C:\Users\Vincent\source\repos\LemonadeStand\LemonadeStand\bin\Debug\netcoreapp2.1\System.Windows.Forms.VisualStudio.15.0.dll
+C:\Users\Vincent\source\repos\LemonadeStand\LemonadeStand\obj\Debug\netcoreapp2.1\LemonadeStand.csproj.CopyComplete

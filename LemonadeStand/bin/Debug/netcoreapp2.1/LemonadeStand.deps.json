@@ -7,8 +7,19 @@
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "LemonadeStand/1.0.0": {
+        "dependencies": {
+          "System.Windows.Forms.VisualStudio.15.0": "4.0.0.0"
+        },
         "runtime": {
           "LemonadeStand.dll": {}
+        }
+      },
+      "System.Windows.Forms.VisualStudio.15.0/4.0.0.0": {
+        "runtime": {
+          "System.Windows.Forms.VisualStudio.15.0.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "16.0.28916.169"
+          }
         }
       }
     }
@@ -16,6 +27,11 @@
   "libraries": {
     "LemonadeStand/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Windows.Forms.VisualStudio.15.0/4.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }
